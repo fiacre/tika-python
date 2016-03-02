@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 # encoding: utf-8
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -16,15 +16,15 @@
 # limitations under the License.
 #
 
-from tika import parse1, callServer, ServerEndpoint
+from tika import parse, callServer, ServerEndpoint
 import os
 import json
 
 def from_file(filename, serverEndpoint=ServerEndpoint, xmlContent=False):
     if not xmlContent:
-        jsonOutput = parse1('all', filename, serverEndpoint)
+        jsonOutput = parse('all', filename, serverEndpoint)
     else:
-        jsonOutput = parse1('all', filename, serverEndpoint, services={'meta': '/meta', 'text': '/tika', 'all': '/rmeta/xml'})
+        jsonOutput = parse('all', filename, serverEndpoint, services={'meta': '/meta', 'text': '/tika', 'all': '/rmeta/xml'})
     return _parse(jsonOutput)
 
 
