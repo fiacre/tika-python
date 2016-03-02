@@ -69,9 +69,6 @@ import tempfile
 import hashlib
 import platform
 from subprocess import Popen
-from subprocess import PIPE
-from subprocess import STDOUT
-
 
 Windows = True if platform.system() == "Windows" else False
 TikaVersion = "1.12"
@@ -100,7 +97,7 @@ def runCommand(cmd, option, urlOrPaths, port, outDir=None, serverHost=ServerHost
     serverEndpoint = 'http://' + serverHost + ':' + port
     if cmd == 'parse':
         if len(urlOrPaths) == 1:
-            status, resp = parse(option, urlOrPaths[0], serverEndpoint, verbose, tikaServerJar)
+            _, resp = parse(option, urlOrPaths[0], serverEndpoint, verbose, tikaServerJar)
         if encode:
             resp = resp.encode("utf-8")
             return resp
@@ -113,7 +110,7 @@ def runCommand(cmd, option, urlOrPaths, port, outDir=None, serverHost=ServerHost
     elif cmd == "translate":
         return doTranslate(option, urlOrPaths, serverEndpoint, verbose, tikaServerJar)        
     elif cmd == "config":
-        status, resp = getConfig(option, serverEndpoint, verbose, tikaServerJar)
+        _, resp = getConfig(option, serverEndpoint, verbose, tikaServerJar)
         return resp
     else:
         die('Bad args')
@@ -130,16 +127,16 @@ def parseAndSave(option, urlOrPaths, outDir=None, serverEndpoint=ServerEndpoint,
     """
     metaPaths = []
     for path in urlOrPaths:
-         if outDir is None:
-             metaPath = path + metaExtension
-         else:
-             metaPath = os.path.join(outDir, os.path.split(path)[1] + metaExtension)
-             echo2('Writing %s' % metaPath)
-             with open(metaPath, 'a') as f:
-                 f.write(parse(option, path, serverEndpoint, verbose, tikaServerJar, \
+        if outDir is None:
+            metaPath = path + metaExtension
+        else:
+            metaPath = os.path.join(outDir, os.path.split(path)[1] + metaExtension)
+            echo2('Writing %s' % metaPath)
+            with open(metaPath, 'a') as f:
+                f.write(parse(option, path, serverEndpoint, verbose, tikaServerJar, \
                                    responseMimeType, services))
-                 f.write("\n")
-         metaPaths.append(metaPath)
+                f.write("\n")
+        metaPaths.append(metaPath)
     return metaPaths
 
 
@@ -285,7 +282,7 @@ def callServer(verb, serverEndpoint, service, data, headers, verbose=Verbose, ti
         die('Tika Server call must be one of %s' % str(httpVerbs.keys()))
     verbFn = httpVerbs[verb]
     
-    if Windows and hasattr(data, 'read')
+    if Windows and hasattr(data, 'read'):
         data = data.read()
         
     encodedData = data
@@ -459,7 +456,7 @@ def main(argv=None):
     option = argv[1]
     try:
         paths = argv[2:]
-    except:
+    except Exception:
         paths = None
     return runCommand(cmd, option, paths, port, outDir, serverHost=serverHost, tikaServerJar=tikaServerJar, verbose=Verbose, encode=EncodeUtf8)
 
