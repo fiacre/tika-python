@@ -36,7 +36,8 @@ gif - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGb.gif
 
 
 audio
-mp3 - http://downloads.bbc.co.uk/podcasts/worldservice/6min_vocab/6min_vocab_20150511-1134a.mp3
+# mp3 - http://downloads.bbc.co.uk/podcasts/worldservice/6min_vocab/6min_vocab_20150511-1134a.mp3
+mp3 - https://archive.org/download/testmp3testfile/mpthreetest.mp3
 mp4 - http://www.ars.usda.gov/is/podcasts/tomatoes.mp4
 wmv - http://www.ars.usda.gov/is/podcasts/tomatoes.wmv
 

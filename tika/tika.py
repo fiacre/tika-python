@@ -161,7 +161,8 @@ def parse(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbose, tik
     service = services.get(option, services['all'])
     if service == '/tika': responseMimeType = 'text/plain'
     status, response = callServer('put', serverEndpoint, service, open(path, 'r'),
-                                  {'Accept': responseMimeType, 'Content-Disposition': 'attachment; filename=%s' % os.path.basename(path)}, 
+                                  {'Accept': responseMimeType, 
+                                  'Content-Disposition': 'attachment; filename=%s' % os.path.basename(path)}, 
                                   verbose, tikaServerJar)
     
     if type == 'remote': os.unlink(path)
@@ -335,12 +336,13 @@ def startServer(tikaServerJar, serverHost = ServerHost, port = Port):
     if Windows:
         host = "0.0.0.0"
     
-    cmd = 'java -jar '+tikaServerJar+' --port '+str(port) +' --host '+host+' &'
+    # cmd = 'java -jar '+tikaServerJar+' --port '+str(port) +' --host '+host+' &'
+    cmd = "java -jar {} --port {} --host {} &".format(
+        tikaServerJar, port, host
+    )
+
     # TODO : format string
-    logFile = open(os.path.join(TikaJarPath, 'tika-server.log'), 'w')
-    # TODO: proper loggin
-    cmd = Popen(cmd , stdout= logFile, stderr = STDOUT, shell =True)
-    # TODO: Magic number
+    logging.info(cmd)
     time.sleep(5) 
 
 def getRemoteFile(urlOrPath, destPath):

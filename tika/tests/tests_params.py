@@ -25,7 +25,7 @@
 
 import csv
 import unittest
-import tika.parser
+from tika import parser
 
 class CreateTest(unittest.TestCase):
     "test for file types"
@@ -44,13 +44,13 @@ class CreateTest(unittest.TestCase):
 
 class RemoteTest(CreateTest):
     def check_true(self):
-        self.param1 = tika.parser.from_file(self.param1)
+        self.param1 = parser.from_file(self.param1)
         self.assertTrue(self.param1)
     def check_meta(self):
-        self.param1 = tika.parser.from_file(self.param1)
+        self.param1 = parser.from_file(self.param1)
         self.assertTrue(self.param1['metadata'])
     def check_content(self):
-        self.param1 = tika.parser.from_file(self.param1)
+        self.param1 = parser.from_file(self.param1)
         self.assertTrue(self.param1['content'])
     def test_all(self):
         suite = test_suite()
