@@ -199,7 +199,7 @@ def detectLang1(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbos
     if option not in services:
         die('Language option must be one of %s ' % str(services.keys()))
     service = services[option]
-    status, response = callServer('put', serverEndpoint, service, open(path, 'r'),
+    status, response = callServer('put', serverEndpoint, service, open(path, 'rb'),
             {'Accept': responseMimeType}, verbose, tikaServerJar)
     return (status, response)
 
@@ -238,16 +238,16 @@ def doTranslate1(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbo
                                   verbose, tikaServerJar)
     return (status, response)
                        
-def detectType(option, urlOrPaths, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
+def _detectType(option, urlOrPaths, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
                responseMimeType='text/plain',
                services={'type': '/detect/stream'}):
     """
         Detect the MIME/media type of the stream and return it in text/plain.
     """
-    return [detectType1(option, path, serverEndpoint, verbose, tikaServerJar, responseMimeType, services)
+    return [detectType(option, path, serverEndpoint, verbose, tikaServerJar, responseMimeType, services)
              for path in urlOrPaths]
 
-def detectType1(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
+def detectType(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
                responseMimeType='text/plain',
                services={'type': '/detect/stream'}):
     """

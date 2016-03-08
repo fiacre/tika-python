@@ -66,7 +66,7 @@ Language Detection Interface
 ```python
 #!/usr/bin/env python3
 from tika import language
-print language.from_file('/path/to/file')
+print(language.from_file('/path/to/file'))
 ```
 
 Translate Interface
