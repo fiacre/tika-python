@@ -16,7 +16,11 @@
 # limitations under the License.
 # 
 
+from __future__ import absolute_import
+from __future__ import division
 from __future__ import print_function
+from __future__ import unicode_literals
+
 
 USAGE = """
 tika.py [-v] [-e] [-o <outputDir>] [--server <TikaServerEndpoint>] [--install <UrlToTikaServerJar>] [--port <portNumber>] <command> <option> <urlOrPathToFile>
@@ -63,8 +67,12 @@ Example usage as python client:
 
 import sys, os, getopt, time
 import logging
-from urllib.request import urlretrieve
-from urllib.parse import urlparse
+if sys.version_info.major == 2:
+    from urllib import urlretrieve
+    from urllib2 import urlparse
+else:
+    from urllib.request import urlretrieve
+    from urllib.parse import urlparse
 import requests
 import socket 
 import tempfile
