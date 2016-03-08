@@ -25,22 +25,10 @@ Installation (without pip)
 Testing it out
 ==============
 
-Parser Interface (backwards compat prior to REST)
--------------------------------------------------
-```python
-#!/usr/bin/env python2.7
-import tika
-tika.initVM()
-from tika import parser
-parsed = parser.from_file('/path/to/file')
-print parsed["metadata"]
-print parsed["content"]
-```
-
-Parser Interface (new)
+Parser Interface 
 ----------------------
 ```python
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 import tika
 from tika import parser
 parsed = parser.from_file('/path/to/file')
@@ -53,19 +41,19 @@ parsed = parser.from_file('/path/to/file', 'http://tika:9998/tika')
 string_parsed = parser.from_buffer('Good evening, Dave', 'http://tika:9998/tika')
 ```
 
-Detect Interface (new)
+Detect Interface 
 ----------------------
 ```python
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 import tika
 from tika import detector
 print detector.from_file('/path/to/file')
 ```
 
-Config Interface (new)
+Config Interface
 ----------------------
 ```python
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 import tika
 from tika import config
 print config.getParsers()
@@ -73,18 +61,18 @@ print config.getMimeTypes()
 print config.getDetectors()
 ```
 
-Language Detection Interface (new)
+Language Detection Interface
 ---------------------------------
 ```python
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 from tika import language
 print language.from_file('/path/to/file')
 ```
 
-Translate Interface (new)
+Translate Interface
 ------------------------
 ```python
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 from tika import translate
 print translate.from_file('/path/to/spanish', 'es', 'en')
 ```
@@ -164,6 +152,7 @@ Contributors
 * Diogo Vieira, Globo.com
 * Aron Ahmadia, Continuum Analytics
 * Karanjeet Singh, USC
+* Andrew Lee (python 3 port)
 
 License
 =======
