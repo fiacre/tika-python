@@ -258,7 +258,7 @@ def detectType1(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbos
     if option not in services:
         die('Detect option must be one of %s' % str(services.keys()))
     service = services[option]
-    status, response = callServer('put', serverEndpoint, service, open(path, 'r'),
+    status, response = callServer('put', serverEndpoint, service, open(path, 'rb'),
             {'Accept': responseMimeType, 'Content-Disposition': 'attachment; filename=%s' % os.path.basename(path)},
             verbose, tikaServerJar)
     return (status, response)
@@ -299,10 +299,10 @@ def callServer(verb, serverEndpoint, service, data, headers,
     
     if Windows and hasattr(data, 'read'):
         data = data.read()
-        
     encodedData = data
-    if type(data) is str:
-       encodedData = data.encode('utf-8')
+    if sys.version_info.major == 2:    
+        if type(data) is str:
+            encodedData = data.encode('utf-8')
     resp = verbFn(serviceUrl, encodedData, headers=headers)
     if verbose:
         logging.info("Request headers: {}".format(headers))

@@ -32,8 +32,8 @@ Parser Interface
 import tika
 from tika import parser
 parsed = parser.from_file('/path/to/file')
-print parsed["metadata"]
-print parsed["content"]
+print(parsed["metadata"])
+print(parsed["content"])
 
 # Optionally, you can pass Tika server URL along with the call
 # what's useful for multi-instance execution or when Tika is dockerzed/linked
@@ -47,7 +47,7 @@ Detect Interface
 #!/usr/bin/env python3
 import tika
 from tika import detector
-print detector.from_file('/path/to/file')
+print(detector.from_file('/path/to/file'))
 ```
 
 Config Interface
@@ -56,9 +56,9 @@ Config Interface
 #!/usr/bin/env python3
 import tika
 from tika import config
-print config.getParsers()
-print config.getMimeTypes()
-print config.getDetectors()
+print(config.getParsers())
+print(config.getMimeTypes())
+print(config.getDetectors())
 ```
 
 Language Detection Interface
