@@ -16,13 +16,13 @@
 # limitations under the License.
 # 
 
-from .tika import detectType, callServer, ServerEndpoint
+from .tika import detectType1, callServer, ServerEndpoint
 
 def from_file(filename):
-    jsonOutput = detectType('type', filename)
+    jsonOutput = detectType1('type', filename)
     return jsonOutput[1]
 
 def from_buffer(string):
-    status, response = callServer('put', ServerEndpoint, '/detect/stream', string,
+    _, response = callServer('put', ServerEndpoint, '/detect/stream', string,
                                   {'Accept': 'text/plain'}, False)
     return response

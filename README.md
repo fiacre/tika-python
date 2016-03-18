@@ -74,7 +74,7 @@ Translate Interface
 ```python
 #!/usr/bin/env python3
 from tika import translate
-print translate.from_file('/path/to/spanish', 'es', 'en')
+print(translate.from_file('/path/to/spanish', 'es', 'en'))
 ```
 
 Using a Buffer
