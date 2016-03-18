@@ -40,7 +40,7 @@ class CreateTest(unittest.TestCase):
     def test_remote_jpg(self):
         'parse remote jpg'
         self.assertTrue(tika.parser.from_file(
-            'http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGb.jpg')
+            'http://www.uscg.mil/hq/capemay/img/HousingNew/CMP1_TA_3Bdr_Enlisted.jpg')
         )
 
 

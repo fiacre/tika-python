@@ -16,15 +16,15 @@
 # limitations under the License.
 #
 
-from .tika import parse, callServer, ServerEndpoint
+from .tika import parse1, callServer, ServerEndpoint
 import os
 import json
 
 def from_file(filename, serverEndpoint=ServerEndpoint, xmlContent=False):
     if not xmlContent:
-        jsonOutput = parse('all', filename, serverEndpoint)
+        jsonOutput = parse1('all', filename, serverEndpoint)
     else:
-        jsonOutput = parse('all', filename, serverEndpoint, services={'meta': '/meta', 'text': '/tika', 'all': '/rmeta/xml'})
+        jsonOutput = parse1('all', filename, serverEndpoint, services={'meta': '/meta', 'text': '/tika', 'all': '/rmeta/xml'})
     return _parse(jsonOutput)
 
 

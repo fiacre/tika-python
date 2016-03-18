@@ -69,7 +69,7 @@ import sys, os, getopt, time
 import logging
 if sys.version_info.major == 2:
     from urllib import urlretrieve
-    from urllib2 import urlparse
+    from urlparse import urlparse
 else:
     from urllib.request import urlretrieve
     from urllib.parse import urlparse
@@ -106,7 +106,7 @@ def runCommand(cmd, option, urlOrPaths, port, outDir=None, serverHost=ServerHost
     serverEndpoint = 'http://' + serverHost + ':' + port
     if cmd == 'parse':
         if len(urlOrPaths) == 1:
-            _, resp = parse(option, urlOrPaths[0], serverEndpoint, verbose, tikaServerJar)
+            _, resp = parse1(option, urlOrPaths[0], serverEndpoint, verbose, tikaServerJar)
         if encode:
             resp = resp.encode("utf-8")
             return resp
@@ -149,16 +149,16 @@ def parseAndSave(option, urlOrPaths, outDir=None, serverEndpoint=ServerEndpoint,
     return metaPaths
 
 
-def _parse(option, urlOrPaths, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
+def parse(option, urlOrPaths, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
           responseMimeType='application/json',
           services={'meta': '/meta', 'text': '/tika', 'all': '/rmeta'}):
     """
     Parse the objects and return extracted metadata and/or text in JSON format.
     """
-    return [parse(option, urlOrPaths, serverEndpoint, verbose, tikaServerJar, responseMimeType, services)
+    return [parse1(option, urlOrPaths, serverEndpoint, verbose, tikaServerJar, responseMimeType, services)
              for path in urlOrPaths]
 
-def parse(option, urlOrPath, 
+def parse1(option, urlOrPath, 
         serverEndpoint=ServerEndpoint, 
         verbose=Verbose, 
         tikaServerJar=TikaServerJar, 
@@ -238,21 +238,20 @@ def doTranslate1(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbo
                                   verbose, tikaServerJar)
     return (status, response)
                        
-def _detectType(option, urlOrPaths, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
+def detectType(option, urlOrPaths, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
                responseMimeType='text/plain',
                services={'type': '/detect/stream'}):
     """
         Detect the MIME/media type of the stream and return it in text/plain.
     """
-    return [detectType(option, path, serverEndpoint, verbose, tikaServerJar, responseMimeType, services)
+    return [detectType1(option, path, serverEndpoint, verbose, tikaServerJar, responseMimeType, services)
              for path in urlOrPaths]
 
-def detectType(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
+def detectType1(option, urlOrPath, serverEndpoint=ServerEndpoint, verbose=Verbose, tikaServerJar=TikaServerJar, 
                responseMimeType='text/plain',
                services={'type': '/detect/stream'}):
     """
         Detect the MIME/media type of the stream and return it in text/plain.
-        TODO: deprecate
     """
     path, mode = getRemoteFile(urlOrPath, TikaFilesPath)
     if option not in services:
@@ -364,6 +363,7 @@ def getRemoteFile(urlOrPath, destPath):
         Fetch URL to local path or just 
         return absolute path.
     """
+    # print(urlOrPath)
     urlp = urlparse(urlOrPath)
     if urlp.scheme == '':
         return (os.path.abspath(urlOrPath), 'local')

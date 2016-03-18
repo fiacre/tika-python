@@ -29,7 +29,7 @@ wmf - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGc.wmf
 gif - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGc.gif
 
 Coast Guard B
-jpg - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGb.jpg
+jpg - http://www.uscg.mil/hq/capemay/img/HousingNew/CMP1_TA_3Bdr_Enlisted.jpg
 eps - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGb1.eps
 wmf - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGb.wmf
 gif - http://www.defense.gov/multimedia/web_graphics/coastgrd/USCGb.gif
