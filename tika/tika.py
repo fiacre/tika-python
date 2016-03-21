@@ -299,9 +299,9 @@ def callServer(verb, serverEndpoint, service, data, headers,
     if Windows and hasattr(data, 'read'):
         data = data.read()
     encodedData = data
-    if sys.version_info.major == 2:    
-        if type(data) is str:
-            encodedData = data.encode('utf-8')
+    # if sys.version_info.major == 2:    
+    #     if type(data) is str:
+    #         encodedData = data.encode('utf-8')
     resp = verbFn(serviceUrl, encodedData, headers=headers)
     if verbose:
         logging.info("Request headers: {}".format(headers))
